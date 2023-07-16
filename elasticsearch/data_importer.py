@@ -9,8 +9,8 @@ conn = mysql.connector.connect(
     host='localhost',
     port='3306',
     database='xiwenlejian',
-    user='root',
-    password='580230'
+    user='your_usernmae',
+    password='your_password'
 )
 
 # 创建游标对象
