@@ -68,7 +68,7 @@ curl -XGET -H 'Content-Type: application/json' http://localhost:9200/book/_searc
 
 创建索引
 
-```kibana
+```shell
 PUT book
 {
   "settings": {
@@ -116,7 +116,7 @@ PUT book
 
 插入数据
 
-```json
+```shell
 POST book/detail/_bulk
 {"index":{"_index":"book","_type":"detail"}}
 {"book_id":1,"isbn":"0195153448","title":"Classical Mythology","author":"Mark P. O. Morford","release_year":2002,"publisher":"Oxford University Press","average_rating":0,"image_url_s":"http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg","image_url_m":"http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg","image_url_l":"http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg"}
@@ -124,7 +124,7 @@ POST book/detail/_bulk
 
 查询数据
 
-```json
+```shell
 GET book/_search 
 {
   "query":{
@@ -132,6 +132,3 @@ GET book/_search
   }
 }
 ```
-
-
-
