@@ -10,6 +10,7 @@ public class UserVO {
 
     private Long userId;
     private String username;
+    private String location;
     private Integer age;
 
     public Long getUserId() {
@@ -26,6 +27,14 @@ public class UserVO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Integer getAge() {

@@ -17,6 +17,7 @@ public class User implements Serializable {
     private Long userId;
     private String username;
     private String password;
+    private String location;
     private Integer age;
 
     public Long getUserId() {
@@ -41,6 +42,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Integer getAge() {

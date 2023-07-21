@@ -7,12 +7,13 @@
         <id column="user_id" property="userId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="location" property="location"/>
         <result column="age" property="age"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, username, password, age
+        user_id, username, password, location, age
     </sql>
 
     <select id="getByUserId" resultMap="BaseResultMap">
