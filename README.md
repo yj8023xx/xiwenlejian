@@ -23,18 +23,19 @@
 
 ## 展示
 
-**首页**
+- 首页
 
 ![home](./img/home.png)
 
-**搜索**
+- 搜索页面
 
 ![search](./img/search.png)
 
-**相似书籍**
+- 书籍详情页
 
 ![book](./img/book.png)
 
-**猜你喜欢**
+- 用户主页
 
 ![user](./img/user.png)
+
