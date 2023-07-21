@@ -6,11 +6,18 @@
 
 ## 展示
 
+**首页**
+
+![home](./img/home.png)
+
+**搜索**
+
+![search](./img/search.png)
+
 **相似书籍**
 
-![similar_books](./img/similar_books.png)
+![book](./img/book.png)
 
 **猜你喜欢**
 
-![rec_for_you](./img/rec_for_you.png)
-
+![user](./img/user.png)
