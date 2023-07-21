@@ -17,7 +17,7 @@
 | Elasticsearch |       搜索引擎       |
 |    Pytorch    |     深度学习框架     |
 |     Spark     |     离线计算框架     |
-|     Redis     |       特征缓存       |
+|     Redis     |       缓存特征       |
 
 
 
