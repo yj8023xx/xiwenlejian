@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.smallc</groupId>
+		<artifactId>xiwenlejian</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.smallc</groupId>
+	<artifactId>xiwenlejian-book</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>xiwenlejian-book</name>
+	<description>xiwenlejian-book</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-common-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-common-book</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-common-database</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-common-recommender</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-api-recommender</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smallc</groupId>
+			<artifactId>xiwenlejian-api-book</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

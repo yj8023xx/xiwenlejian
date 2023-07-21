@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallc.xiwenlejian.book.mapper.BookMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap"
+               type="com.smallc.xiwenlejian.book.model.Book">
+        <id column="book_id" property="bookId"/>
+        <result column="isbn" property="isbn"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="release_year" property="releaseYear"/>
+        <result column="publisher" property="publisher"/>
+        <result column="average_rating" property="averageRating"/>
+        <result column="image_url_s" property="imageUrlS"/>
+        <result column="image_url_m" property="imageUrlM"/>
+        <result column="image_url_l" property="imageUrlL"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        book_id
+        , isbn, title, author, release_year, publisher, average_rating, image_url_s, image_url_m, image_url_l
+    </sql>
+
+    <select id="getByBookId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM book
+        WHERE
+        book_id = #{bookId}
+    </select>
+
+    <select id="listByBookIds" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM book
+        WHERE
+        book_id
+        IN
+        <foreach item="id" index="index" collection="ids" open='(' separator=',' close=')'>
+            #{id}
+        </foreach>
+        ORDER BY
+        book_id
+        ASC
+    </select>
+
+    <select id="listByOrder" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM book
+    </select>
+
+    <select id="listByAuthor" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM book
+        WHERE
+        author = #{author}
+    </select>
+
+    <select id="listByPublisher" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM book
+        WHERE
+        publisher = #{publisher}
+    </select>
+
+</mapper>
