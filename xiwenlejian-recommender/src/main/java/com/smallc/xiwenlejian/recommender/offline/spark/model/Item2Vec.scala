@@ -42,7 +42,7 @@ object Item2Vec {
   def trainItem2Vec(userBehaviorSeq: DataFrame): Word2VecModel = {
     // 训练Item2Vec模型
     val item2Vec = new Word2Vec()
-      .setVectorSize(10)
+      .setVectorSize(24)
       .setWindowSize(5)
       .setMinCount(1)
       .setMaxIter(200)
@@ -50,32 +50,6 @@ object Item2Vec {
       .setOutputCol("item_embedding")
     val model = item2Vec.fit(userBehaviorSeq)
     model
-  }
-
-  def vectorToText(vector: Seq[Double]): String = {
-    val dimensionValues = vector.zipWithIndex.map { case (value, index) => s"${index + 1}:$value" }
-    dimensionValues.mkString(" ")
-  }
-
-  // 将DataFrame中的数据写入文本文件
-  def writeEmbeddingsToTextFile(dataFrame: DataFrame, outputPath: String): Unit = {
-    // 获取DataFrame的列名数组
-    val columnNames: Array[String] = dataFrame.columns
-
-    // 定义将embedding向量转换为文本格式的UDF函数
-    val vectorToTextUDF = udf((vector: Seq[Double]) => vectorToText(vector))
-
-    // 添加一个新的列，该列包含embedding向量的文本表示
-    val dfWithTextEmbeddings = dataFrame.withColumn("text_embedding", vectorToTextUDF(col(columnNames(1))))
-
-    // 将book_id列和转换后的embedding列拼接为一个新的列，中间用空格隔开
-    val resultDF = dfWithTextEmbeddings.withColumn("book_id_and_embedding", concat_ws(" ", col(columnNames(0)), col("text_embedding")))
-
-    // 选择新拼接的列，即book_id和转换后的embedding拼接的结果
-    val selectedDF = resultDF.select("book_id_and_embedding").coalesce(1)
-
-    // 将DataFrame中的数据写入文本文件
-    selectedDF.write.text(outputPath)
   }
 
   def main(args: Array[String]): Unit = {
@@ -146,14 +120,14 @@ object Item2Vec {
       bos.toByteArray
     }
 
-    // 将user_embedding保存到Redis中
+    // 将embedding保存到Redis中
     userEmbedding.rdd.foreachPartition(iter => saveEmbeddings(iter, "U", "user_id", "user_embedding"))
-    // 将item_embedding保存到Redis中
     itemEmbedding.rdd.foreachPartition(iter => saveEmbeddings(iter, "I", "book_id", "item_embedding"))
 
-    // 将itemEmbedding保存为svm文件
-    writeEmbeddingsToTextFile(userEmbedding, "user_embedding.svm")
-    writeEmbeddingsToTextFile(itemEmbedding, "item_embedding.svm")
+    // 将item_embedding保存成csv文件
+    // 将Array[Double]列转换为逗号分隔的字符串
+    val resultDF = itemEmbedding.withColumn("vector", concat_ws(",", col("item_embedding")))
+    resultDF.select("book_id", "vector").coalesce(1).write.option("header", "true").csv("item_embedding")
   }
 
 }
