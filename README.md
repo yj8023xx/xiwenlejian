@@ -14,6 +14,7 @@
 |   MapStruct   |     Bean 转换器      |
 |     Nacos     |     服务注册中心     |
 |    MyBatis    |       ORM 框架       |
+|     Druid     |     数据库连接池     |
 |  PageHelper   | MyBatis 物理分页插件 |
 | Elasticsearch |       搜索引擎       |
 |    Pytorch    |     深度学习框架     |
