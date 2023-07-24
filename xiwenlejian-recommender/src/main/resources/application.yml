@@ -23,6 +23,6 @@ spring:
     host: 127.0.0.1
     port: 6379
 
-recommender:
-  model:
-    als: als_model
+milvus:
+  host: 127.0.0.1
+  port: 19530
