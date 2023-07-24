@@ -1,29 +1,26 @@
 package com.smallc.xiwenlejian.book.mapper;
 
-import java.util.List;
-
 import com.smallc.xiwenlejian.book.model.Book;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import com.smallc.xiwenlejian.book.vo.BookVO;
+import com.smallc.xiwenlejian.common.book.bo.BookBO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
- * Mapper 接口
- *
- * @author zhang
+ * @author yj8023xx
  * @version 1.0
+ * @date 2023/7/23
  * @since com.smallc.xiwenlejian.book.mapper
  */
-@Repository
+@Mapper
 public interface BookMapper {
 
-    Book getByBookId(@Param("bookId") Long bookId);
+    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
-    List<Book> listByBookIds(@Param("ids") List<Long> ids);
+    BookVO convertToVO(Book book);
 
-    List<Book> listByOrder(@Param("orderBy") String orderBy);
+    BookVO convertToVO(BookBO book);
 
-    List<Book> listByAuthor(@Param("author") String author);
-
-    List<Book> listByPublisher(@Param("publisher") String publisher);
+    BookBO convertToBO(Book book);
 
 }
