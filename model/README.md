@@ -13,7 +13,7 @@ docker pull pytorch/torchserve:latest
 - 启动 torchserve（本地命令行）
 
 ```shell
-docker run --rm -it -p 3000:8080 -p 3001:8081 -v C:\Nutstore\JavaWeb\xiwenlejian\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
+docker run --rm -it -p 3000:8080 -p 3001:8081 -v path_to_your_project\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
 ```
 
 - 注册模型（Docker 容器）
