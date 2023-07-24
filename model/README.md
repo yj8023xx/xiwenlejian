@@ -1,9 +1,9 @@
-- 生成mar
+- 生成 mar
 ```shell
 torch-model-archiver --model-name ncf --version 1.0 --model-file ./ncf.py --serialized-file ncf.pt --export-path model_store --handler ncf_handler.py --force
 ```
 
-- 运行torchserve
+- docker 运行 torchserve
 ```shell
 docker run --rm -it -p 3000:8080 -p 3001:8081 -v path_to_your_project\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
 ```
