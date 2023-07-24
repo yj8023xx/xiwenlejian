@@ -20,10 +20,15 @@ spring:
   profiles:
     active: @profiles.active@
   datasource:
-    url: jdbc:mysql://localhost:3306/xiwenlejian?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/xiwenlejian?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&autoReconnect=true
     username: root
-    password: 580230
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml
