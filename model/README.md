@@ -5,7 +5,7 @@ torch-model-archiver --model-name ncf --version 1.0 --model-file ./ncf.py --seri
 
 - 运行torchserve
 ```shell
-docker run --rm -it -p 3000:8080 -p 3001:8081 -v C:\Nutstore\JavaWeb\xiwenlejian\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
+docker run --rm -it -p 3000:8080 -p 3001:8081 -v path_to_your_project\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
 ```
 
 - 注册模型
