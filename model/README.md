@@ -4,7 +4,7 @@
 torch-model-archiver --model-name ncf --version 1.0 --model-file ./ncf.py --serialized-file ncf.pt --export-path model_store --handler ncf_handler.py --force
 ```
 
-- 本地命令行运行如下命令拉取 torchserve Docker 镜像
+- 拉取 torchserve Docker 镜像（本地命令行）
 
 ```shell
 docker pull pytorch/torchserve:latest
