@@ -12,6 +12,9 @@ import com.smallc.xiwenlejian.common.user.bo.UserBO;
 import com.smallc.xiwenlejian.recommender.online.contsant.Constant;
 import com.smallc.xiwenlejian.recommender.online.service.RecommenderService;
 import com.smallc.xiwenlejian.recommender.online.utils.SimilarityUtil;
+import io.milvus.client.MilvusClient;
+import io.milvus.client.SearchParam;
+import io.milvus.client.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -21,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author yj8023xx
@@ -33,6 +37,8 @@ public class RecommenderServiceImpl implements RecommenderService {
 
     @Autowired
     private JedisPool jedisPool;
+    @Autowired
+    private MilvusClient client;
     @Autowired
     private BookFeignClient bookFeignClient;
     @Autowired
@@ -153,7 +159,7 @@ public class RecommenderServiceImpl implements RecommenderService {
             }
         }
 
-        // 基于协同过滤的召回
+        // TODO 基于协同过滤的召回
 
 
         // 基于Embedding的召回
@@ -200,10 +206,10 @@ public class RecommenderServiceImpl implements RecommenderService {
         }
 
         // 基于Embedding的召回
-//        List<BookBO> embeddingCandidates = retrievalCandidatesByEmbedding(book.getEmbedding(), candidateSizePerWay);
-//        for (BookBO candidate : embeddingCandidates) {
-//            candidateMap.put(candidate.getBookId(), candidate);
-//        }
+        List<BookBO> embeddingCandidates = retrievalCandidatesByEmbedding(book.getEmbedding(), 6);
+        for (BookBO candidate : embeddingCandidates) {
+            candidateMap.put(candidate.getBookId(), candidate);
+        }
 
         candidateMap.remove(book.getBookId());
 
@@ -218,29 +224,32 @@ public class RecommenderServiceImpl implements RecommenderService {
      * @return book candidates
      */
     public List<BookBO> retrievalCandidatesByEmbedding(List<Double> embedding, Integer size) {
-        if (null == embedding) {
-            return new ArrayList<>();
-        }
-
-        // retrieval all candidates
-        List<BookBO> allCandidates = bookFeignClient.listByOrder("average_rating DESC", Constant.CANDIDATE_SIZE);
-
-        HashMap<BookBO, Double> bookScoreMap = new HashMap<>();
-        for (BookBO candidate : allCandidates) {
-            // load book embedding from redis if null
-            if (null == candidate.getEmbedding()) {
-                candidate.setEmbedding(loadEmbedding("I" + candidate.getBookId()));
-            }
-            double similarity = SimilarityUtil.calculateCosineSimilarity(embedding, candidate.getEmbedding());
-            bookScoreMap.put(candidate, similarity);
-        }
-
-        List<Map.Entry<BookBO, Double>> bookScoreList = new ArrayList<>(bookScoreMap.entrySet());
-        bookScoreList.sort(Map.Entry.comparingByValue());
-
         List<BookBO> candidates = new ArrayList<>();
-        for (Map.Entry<BookBO, Double> bookScoreEntry : bookScoreList) {
-            candidates.add(bookScoreEntry.getKey());
+        if (null == embedding) {
+            return candidates;
+        }
+        // Search vectors
+        // convert to float list
+        List<Float> embeddingFloatList = embedding.stream()
+                .map(Double::floatValue) // 使用map方法将Double转换为Float
+                .collect(Collectors.toList());
+        List<List<Float>> vectorsToSearch = new ArrayList<>(Collections.singleton(embeddingFloatList));
+        // build search param
+        JSONObject searchParamsJson = new JSONObject();
+        searchParamsJson.put("nprobe", 20);
+        SearchParam searchParam =
+                new SearchParam.Builder("item_embedding")
+                        .withFloatVectors(vectorsToSearch)
+                        .withTopK(size)
+                        .withParamsInJson(searchParamsJson.toString())
+                        .build();
+        SearchResponse searchResponse = client.search(searchParam);
+        if (searchResponse.ok()) {
+            List<List<Long>> resultIds = searchResponse.getResultIdsList();
+            List<Long> bookIds = resultIds.get(0);
+            if (!bookIds.isEmpty()) {
+                candidates = bookFeignClient.listByBookIds(bookIds);
+            }
         }
 
         return candidates.subList(0, Math.min(candidates.size(), size));
