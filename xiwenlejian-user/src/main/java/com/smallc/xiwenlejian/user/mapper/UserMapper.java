@@ -1,22 +1,24 @@
 package com.smallc.xiwenlejian.user.mapper;
 
-
+import com.smallc.xiwenlejian.common.user.bo.UserBO;
 import com.smallc.xiwenlejian.user.model.User;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import com.smallc.xiwenlejian.user.vo.UserVO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
- * Mapper 接口
- *
- * @author zhang
+ * @author yj8023xx
  * @version 1.0
+ * @date 2023/7/23
  * @since com.smallc.xiwenlejian.user.mapper
  */
-@Repository
+@Mapper
 public interface UserMapper {
 
-    User getByUserId(@Param("userId") Long userId);
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User getByUsername(@Param("username") String username);
+    UserVO convertToVO(User user);
+
+    UserBO convertToBO(User user);
 
 }
