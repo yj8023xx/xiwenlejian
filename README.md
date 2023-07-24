@@ -11,6 +11,7 @@
 |      Vue      |       前端框架       |
 | Spring Cloud  |      微服务框架      |
 |  Spring Boot  |   容器 + MVC 框架    |
+|   MapStruct   |     Bean 转换器      |
 |     Nacos     |     服务注册中心     |
 |    MyBatis    |       ORM 框架       |
 |  PageHelper   | MyBatis 物理分页插件 |
