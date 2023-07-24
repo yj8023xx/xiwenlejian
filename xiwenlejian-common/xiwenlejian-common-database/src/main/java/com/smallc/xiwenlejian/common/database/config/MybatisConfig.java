@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @since com.smallc.xiwenlejian.common.database.config
  */
 @Configuration
-@MapperScan({ "com.smallc.xiwenlejian.**.mapper" })
+@MapperScan({"com.smallc.xiwenlejian.**.dao"})
 public class MybatisConfig {
+
 }
