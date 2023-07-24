@@ -18,6 +18,7 @@
 |    Pytorch    |     深度学习框架     |
 |     Spark     |     离线计算框架     |
 |     Redis     |       缓存特征       |
+|    Milvus     |      向量数据库      |
 
 
 
