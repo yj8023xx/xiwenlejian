@@ -7,12 +7,10 @@ import com.smallc.xiwenlejian.book.constant.Constant;
 import com.smallc.xiwenlejian.book.service.BookService;
 import com.smallc.xiwenlejian.common.core.controller.BaseController;
 import com.smallc.xiwenlejian.book.vo.BookVO;
-import com.smallc.xiwenlejian.common.core.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 前端控制器
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since com.smallc.xiwenlejian.book.controller
  */
 @RestController
-@RequestMapping("/book")
 public class BookController extends BaseController {
 
     @Autowired
@@ -34,20 +31,36 @@ public class BookController extends BaseController {
      * @param bookId 书本的id
      * @return
      */
-    @GetMapping("/info")
-    public ResultVO getInfo(@RequestParam Long bookId) {
+    @GetMapping("/book/{bookId}")
+    public ResponseEntity<BookVO> getInfo(@PathVariable Long bookId) {
         BookVO bookVO = bookService.getInfo(bookId);
+        if (bookVO == null) {
+            return onFail(HttpStatus.NOT_FOUND.value(), "书籍未找到！");
+        }
         return onSuccess(bookVO);
     }
 
-    @GetMapping("/highrated")
-    public ResultVO listHighRatedBooks(@RequestParam Integer size) {
+    /**
+     * 获取评分高的书
+     *
+     * @param size
+     * @return
+     */
+    @GetMapping("/book/highrated")
+    public ResponseEntity<List<BookVO>> listHighRatedBooks(@RequestParam(required = false, defaultValue = "12") Integer size) {
         List<BookVO> bookVOs = bookService.listHighRatedBooks(size);
         return onSuccess(bookVOs);
     }
 
-    @GetMapping("/history")
-    public ResultVO listHistoryBooks(@RequestParam Long userId, @RequestParam Integer size) {
+    /**
+     * 获取用户看过的书
+     *
+     * @param userId
+     * @param size
+     * @return
+     */
+    @GetMapping("/user/{userId}/history")
+    public ResponseEntity<List<BookVO>> listHistoryBooks(@PathVariable Long userId, @RequestParam(required = false, defaultValue = "12") Integer size) {
         List<BookVO> bookVOs = bookService.listHistoryBooks(userId, size);
         return onSuccess(bookVOs);
     }
@@ -59,8 +72,8 @@ public class BookController extends BaseController {
      * @return
      * @throws IOException
      */
-    @GetMapping("/rec")
-    public ResultVO listRecBooks(@RequestParam Long userId, @RequestParam Integer size) {
+    @GetMapping("/user/{userId}/rec")
+    public ResponseEntity<List<BookVO>> listRecBooks(@PathVariable Long userId, @RequestParam(required = false, defaultValue = "12") Integer size) {
         List<BookVO> books = bookService.listRecBooks(userId, size, Constant.REC_MODEL.getValue());
         return onSuccess(books);
     }
@@ -68,11 +81,12 @@ public class BookController extends BaseController {
     /**
      * 查找相似书籍
      *
-     * @param bookId
+     * @param bookId   查看书籍id
+     * @param size 推荐的相似书籍数量
      * @return
      */
-    @GetMapping("/similar")
-    public ResultVO listSimilarBooks(@RequestParam Long bookId, @RequestParam Integer size) {
+    @GetMapping("/book/{bookId}/similar")
+    public ResponseEntity<List<BookVO>> listSimilarBooks(@PathVariable Long bookId, @RequestParam(required = false, defaultValue = "12") Integer size) {
         List<BookVO> bookVOs = bookService.listSimilarBooks(bookId, size, Constant.SIMILAR_MODEL.getValue());
         return onSuccess(bookVOs);
     }
