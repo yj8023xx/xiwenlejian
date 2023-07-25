@@ -30,9 +30,7 @@ export default {
             // 发送登录请求
             axios.post('http://127.0.0.1:9105/user/login', userDTO)
                 .then(response => {
-                    var user = response.data.data
-                    console.log(user)
-                    localStorage.setItem('userId', JSON.stringify(user.userId));
+                    var user = response.data
                     // 处理登录成功的逻辑，如保存登录状态、跳转到其他页面等
                     this.$router.push({ name: 'User', params: { id: user.userId } });
                 })

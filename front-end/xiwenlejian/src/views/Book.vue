@@ -53,24 +53,19 @@ export default {
             this.$router.push({ name: 'Book', params: { id: bookId } });
         },
         getBookDetails() {
-            axios.get('http://127.0.0.1:9104/book/info', {
-                params: {
-                    bookId: this.bookId
-                }
-            }).then(response => {
-                this.book = response.data.data;
+            axios.get('http://127.0.0.1:9104/book/' + this.bookId).then(response => {
+                this.book = response.data;
             }).catch(error => {
                 console.error(error);
             });
         },
         getSimilarBooks() {
-            axios.get('http://127.0.0.1:9104/book/similar', {
+            axios.get('http://127.0.0.1:9104/book/' + this.bookId + '/similar', {
                 params: {
-                    bookId: this.bookId,
                     size: 12
                 }
             }).then(response => {
-                this.similarBooks = response.data.data;
+                this.similarBooks = response.data;
             }).catch(error => {
                 console.error(error);
             });

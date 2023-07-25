@@ -66,36 +66,30 @@ export default {
     },
     methods: {
         getUserInfo() {
-            axios.get('http://127.0.0.1:9105/user', {
-                params: {
-                    userId: this.userId
-                }
-            }).then(response => {
-                this.user = response.data.data;
+            axios.get('http://127.0.0.1:9105/user/' + this.userId).then(response => {
+                this.user = response.data;
             }).catch(error => {
                 console.error(error);
             });
         },
         getHistoryBooks() {
-            axios.get('http://127.0.0.1:9104/book/history', {
+            axios.get('http://127.0.0.1:9104/user/' + this.userId + '/history', {
                 params: {
-                    userId: this.userId,
                     size: 12
                 }
             }).then(response => {
-                this.historyBooks = response.data.data;
+                this.historyBooks = response.data;
             }).catch(error => {
                 console.error(error);
             });
         },
         getRecommendBooks() {
-            axios.get('http://127.0.0.1:9104/book/rec', {
+            axios.get('http://127.0.0.1:9104/user/' + this.userId + '/rec', {
                 params: {
-                    userId: this.userId,
-                    size: 12
+                    size: 24
                 }
             }).then(response => {
-                this.recommendBooks = response.data.data;
+                this.recommendBooks = response.data;
             }).catch(error => {
                 console.error(error);
             });

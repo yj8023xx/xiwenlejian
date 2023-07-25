@@ -40,7 +40,7 @@ export default {
                     size: 18
                 }
             }).then(response => {
-                this.books = response.data.data;
+                this.books = response.data;
             }).catch(error => {
                 console.error(error);
             });

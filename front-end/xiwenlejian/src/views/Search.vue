@@ -37,11 +37,10 @@ export default {
     },
     methods: {
         searchBooks() {
-            axios.get('http://127.0.0.1:9109/search', {
+            axios.get('http://127.0.0.1:9109/search/' + this.keyword, {
                 params: {
                     pageNum: 0,
                     pageSize: 24,
-                    keyword: this.keyword
                 }
             }).then(response => {
                 this.books = response.data.data;
