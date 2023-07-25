@@ -32,7 +32,7 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
-    public List<BookVO> search(Integer pageNum, Integer pageSize, String keyword) throws IOException {
+    public List<BookVO> search(String keyword, Integer pageNum, Integer pageSize) throws IOException {
         // 构建搜索请求
         SearchRequest searchRequest = new SearchRequest("book");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -72,12 +72,12 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public PageResultVO<BookVO> searchBooks(SearchDTO searchDTO) {
+        String keyword = searchDTO.getKeyword();
         Integer pageNum = searchDTO.getPageNum();
         Integer pageSize = searchDTO.getPageSize();
-        String keyword = searchDTO.getKeyword();
 
         try {
-            List<BookVO> bookVOs = search(pageNum, pageSize, keyword);
+            List<BookVO> bookVOs = search(keyword, pageNum, pageSize);
             long totalResults = bookVOs.size();
             return new PageResultVO<>((int) Math.ceil(totalResults * 1.0 / pageSize), totalResults, bookVOs);
         } catch (IOException e) {
