@@ -1,4 +1,4 @@
-# ElasticSearch 配置
+# ElasticSearch 部署
 
 **curl**
 
