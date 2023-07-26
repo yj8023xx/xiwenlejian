@@ -1,3 +1,20 @@
+# 模型
+
+## 特征工程
+
+- 提前下载好 Book-Crossing 数据集并放入 data 目录中
+- 运行 feature_engineering.ipynb，会在 data 目录中生成处理好的数据
+
+
+
+## 模型训练
+
+运行 ncf.ipynb，会在当前目录生成 ncf.pt
+
+
+
+## 模型部署
+
 - 生成 mar（本地命令行）
 
 ```shell
