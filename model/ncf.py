@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 
+
 def create_feature_map():
     feature_map = {
         "dataset_id": "bookcrossing",
@@ -9,18 +10,19 @@ def create_feature_map():
             "user_id": {
                 "source": "user",
                 "type": "categorical",
-                "vocab_size": 278855,
+                "vocab_size": 278858,
                 "index": 0
             },
             "book_id": {
                 "source": "item",
                 "type": "categorical",
-                "vocab_size": 271361,
+                "vocab_size": 271379,
                 "index": 1
             }
         }
     }
     return feature_map
+
 
 class NCF(nn.Module):
     def __init__(self,
