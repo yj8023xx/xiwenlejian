@@ -1,12 +1,5 @@
 # 模型训练与部署
 
-## 特征工程
-
-- 提前下载好 Book-Crossing 数据集并放入 data 目录中
-- 运行 feature_engineering.ipynb，会在 data 目录中生成处理好的数据
-
-
-
 ## 模型训练
 
 运行 ncf.ipynb，会在当前目录生成 ncf.pt
@@ -30,7 +23,7 @@ docker pull pytorch/torchserve:latest
 - 启动 torchserve（本地命令行）
 
 ```shell
-docker run -d --name torchserve -p 3000:8080 -p 3001:8081 -v path_to_your_project\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
+docker run -d --name torchserve -p 3000:8080 -p 3001:8081 -v C:\Nutstore\JavaWeb\xiwenlejian\model\model_store:/home/model-server/model-store pytorch/torchserve:latest
 ```
 
 - 注册模型（Docker 容器）
