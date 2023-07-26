@@ -27,7 +27,8 @@
 ## 部署
 
 - [前端部署](https://github.com/yj8023xx/xiwenlejian/blob/main/front-end/xiwenlejian/README.md)
-- [模型部署](https://github.com/yj8023xx/xiwenlejian/blob/main/model/README.md)
+- [数据集下载](https://github.com/yj8023xx/xiwenlejian/tree/main/data)
+- [模型训练与部署](https://github.com/yj8023xx/xiwenlejian/blob/main/model/README.md)
 - [Milvus 部署](https://github.com/yj8023xx/xiwenlejian/blob/main/milvus/README.md)
 - [ElasticSearch 部署](https://github.com/yj8023xx/xiwenlejian/blob/main/elasticsearch/README.md)
 
