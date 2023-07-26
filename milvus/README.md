@@ -1,4 +1,4 @@
-# Milvus 配置
+# Milvus 部署
 
 - 拉取 Milvus Docker 镜像（本地命令行）
 
