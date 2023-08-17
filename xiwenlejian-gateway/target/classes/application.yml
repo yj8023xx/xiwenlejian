@@ -1,0 +1,34 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: xiwenlejian-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: xiwenlejian-user
+          uri:
+            lb://xiwenlejian-user
+          predicates:
+            - Path=/user/**
+        - id: xiwenlejian-book
+          uri:
+            lb://xiwenlejian-book
+          predicates:
+            - Path=/book/**
+            - Path=/user/**
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        namespace: 
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+  profiles:
+    active: dev
