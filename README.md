@@ -33,7 +33,7 @@
 
 ## 推荐系统架构
 
-![recommender](./img/recommender.svg)
+![recommender](./img/recommender.png)
 
 
 
