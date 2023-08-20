@@ -27,7 +27,7 @@
 
 ## 架构
 
-![xiwenlejian](./img/xiwenlejian.svg)
+![xiwenlejian](./img/xiwenlejian.png)
 
 
 
