@@ -46,7 +46,7 @@ public class UserController extends BaseController {
      * @return
      */
     @GetMapping("/{userId}")
-    public ResponseEntity<UserVO> getInfo(@PathVariable Long userId) {
+    public ResponseEntity<UserVO> getInfo(@PathVariable("userId") Long userId) {
         UserVO userVO = userService.getInfo(userId);
         if (userVO == null) {
             return onFail(HttpStatus.NOT_FOUND.value(), "用户不存在");
