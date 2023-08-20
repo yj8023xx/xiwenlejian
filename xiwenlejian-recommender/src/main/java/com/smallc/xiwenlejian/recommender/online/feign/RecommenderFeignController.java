@@ -21,13 +21,13 @@ public class RecommenderFeignController implements RecommenderFeignClient {
     private RecommenderService recommenderService;
 
     @Override
-    public List<BookBO> listRecBooks(Long userId, Integer size, Integer model) {
-        return recommenderService.listRecBooks(userId, size, model);
+    public List<BookBO> listRecBooks(Long userId, Integer model, Integer size) {
+        return recommenderService.listRecBooks(userId, model, size);
     }
 
     @Override
-    public List<BookBO> listSimilarBooks(Long bookId, Integer size, Integer model) {
-        return recommenderService.listSimilarBooks(bookId, size, model);
+    public List<BookBO> listSimilarBooks(Long bookId, Integer model, Integer size) {
+        return recommenderService.listSimilarBooks(bookId, model, size);
     }
 
 }
