@@ -22,7 +22,7 @@ public class SearchController extends BaseController {
     private SearchService searchService;
 
     @GetMapping("/search/{keyword}")
-    public ResponseEntity<PageResultVO<BookVO>> searchBooks(@PathVariable String keyword,
+    public ResponseEntity<PageResultVO<BookVO>> searchBooks(@PathVariable("keyword") String keyword,
                                                             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                             @RequestParam(required = false, defaultValue = "12")Integer pageSize) {
         SearchDTO searchDTO = new SearchDTO(keyword, pageNum, pageSize);
