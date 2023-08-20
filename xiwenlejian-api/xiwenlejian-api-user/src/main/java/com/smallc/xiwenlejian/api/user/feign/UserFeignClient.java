@@ -3,6 +3,7 @@ package com.smallc.xiwenlejian.api.user.feign;
 import com.smallc.xiwenlejian.common.user.bo.UserBO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("xiwenlejian-user")
 public interface UserFeignClient {
 
-    @GetMapping("/getByUserId")
-    UserBO getByUserId(@RequestParam("userId") Long userId);
+    @GetMapping("/feign/user/{userId}")
+    UserBO getByUserId(@PathVariable("userId") Long userId);
 
 }
