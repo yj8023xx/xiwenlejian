@@ -3,6 +3,7 @@ package com.smallc.xiwenlejian.api.recommender.feign;
 import com.smallc.xiwenlejian.common.book.bo.BookBO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -16,10 +17,10 @@ import java.util.List;
 @FeignClient("xiwenlejian-recommender")
 public interface RecommenderFeignClient {
 
-    @GetMapping("/listRecBooks")
-    List<BookBO> listRecBooks(@RequestParam("userId") Long userId, @RequestParam("recSize") Integer recSize, @RequestParam("recModel") Integer recModel);
+    @GetMapping("/feign/book/recommend/{userId}")
+    List<BookBO> listRecBooks(@PathVariable("userId") Long userId, @RequestParam("model") Integer model, @RequestParam("size") Integer size);
 
-    @GetMapping("/listSimilarBooks")
-    List<BookBO> listSimilarBooks(@RequestParam("bookId") Long bookId, @RequestParam("recSize") Integer recSize, @RequestParam("recModel") Integer recModel);
+    @GetMapping("/feign/book/similar/{bookId}")
+    List<BookBO> listSimilarBooks(@PathVariable("bookId") Long bookId, @RequestParam("model") Integer model, @RequestParam("size") Integer size);
 
 }
