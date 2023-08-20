@@ -25,6 +25,20 @@
 
 
 
+## 架构
+
+![xiwenlejian](./img/xiwenlejian.svg)
+
+
+
+## 推荐系统架构
+
+![recommender](./img/recommender.svg)
+
+
+
+
+
 ## 部署
 
 - [前端部署](https://github.com/yj8023xx/xiwenlejian/blob/main/front-end/xiwenlejian/README.md)
